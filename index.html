@@ -3,73 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OMNI-SHELL: Project Root</title>
+    <title>OMNI-SHELL // TERMINAL</title>
     <style>
+        :root {
+            --term-green: #00ff41;
+            --term-dim: #003b00;
+            --bg-color: #050505;
+        }
+
         body {
-            background-color: #0b0e14;
-            color: #00f2ff;
+            background-color: var(--bg-color);
+            color: var(--term-green);
             font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
             height: 100vh;
-            margin: 0;
-            text-shadow: 0 0 5px #00f2ff;
+            overflow: hidden;
+            text-transform: uppercase;
         }
-        h1 {
-            border-bottom: 2px solid #00f2ff;
+
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--term-green);
             padding-bottom: 10px;
-            letter-spacing: 3px;
+            margin-bottom: 20px;
         }
-        .container {
-            background: rgba(0, 242, 255, 0.05);
-            padding: 2rem;
-            border: 1px solid #00f2ff;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+
+        .ascii-art {
+            white-space: pre;
+            font-size: 10px;
+            line-height: 1;
+            margin-bottom: 20px;
+            color: var(--term-green);
         }
-        ul {
-            list-style: none;
-            padding: 0;
+
+        .main-nav {
+            flex-grow: 1;
         }
-        li {
-            margin: 15px 0;
+
+        .nav-item {
+            margin: 10px 0;
+            display: block;
         }
-        a {
-            color: #fff;
+
+        .nav-item a {
+            color: var(--term-green);
             text-decoration: none;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border: 1px solid transparent;
         }
-        a:hover {
-            color: #00f2ff;
-            padding-left: 10px;
+
+        .nav-item a:hover {
+            background-color: var(--term-green);
+            color: var(--bg-color);
+            border: 1px solid var(--term-green);
         }
-        .status {
+
+        .nav-item a::before {
+            content: "[ ";
+        }
+
+        .nav-item a::after {
+            content: " ]";
+        }
+
+        .footer {
+            border-top: 1px solid var(--term-green);
+            padding-top: 10px;
             font-size: 0.8rem;
-            color: #555;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2rem;
+            background-color: var(--term-green);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .stats-box {
+            border: 1px solid var(--term-dim);
+            padding: 10px;
             margin-top: 20px;
+            color: var(--term-dim);
+            font-size: 0.7rem;
         }
     </style>
 </head>
 <body>
 
-    <h1>OMNI-SHELL // GHOST WAR</h1>
-    
-    <div class="container">
-        <ul>
-            <li>
-                <a href="LICENSE.md">📄 View Project License (MD)</a>
-            </li>
-            <li>
-                <a href="tiddlers.html">📂 Access Game Design Wiki (Tiddlers)</a>
-            </li>
-        </ul>
+    <div class="header">
+        <div>OMNI-SHELL OS v1.0.4 - KERNEL: GHOST_WAR</div>
+        <div>STATION: 0x7F - STATUS: ENCRYPTED</div>
     </div>
 
-    <div class="status">
-        SYSTEM STATUS: TETHER STABLE // DATA CONNECTION ACTIVE
+    <div class="ascii-art">
+ ██████╗ ███╗   ███╗███╗   ██╗██╗   ███████╗██╗  ██╗███████╗██╗     ██╗     
+██╔═══██╗████╗ ████║████╗  ██║██║   ██╔════╝██║  ██║██╔════╝██║     ██║     
+██║   ██║██╔████╔██║██╔██╗ ██║██║   ███████╗███████║█████╗  ██║     ██║     
+██║   ██║██║╚██╔╝██║██║╚██╗██║██║   ╚════██║██╔══██║██╔══╝  ██║     ██║     
+╚██████╔╝██║ ╚═╝ ██║██║ ╚████║██║   ███████║██║  ██║███████╗███████╗███████╗
+ ╚═════╝ ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+    </div>
+
+    <div class="main-nav">
+        <div class="nav-item">
+            <a href="tiddlers.html">GOTO_WIKI (TIDDLERS)</a>
+        </div>
+        <div class="nav-item">
+            <a href="LICENSE.md">READ_LEGAL (LICENSE)</a>
+        </div>
+        <div class="nav-item">
+            <a href="#">SYS_STATUS (STABLE)</a>
+        </div>
+        <p>> INITIALIZING TETHER_PROTOCOL...<span class="cursor"></span></p>
+    </div>
+
+    <div class="stats-box">
+        EQUATION_LOADED: T = f * Σ(B_i) <br>
+        LOC_ROOT: /USER/DOCS/GHOST_WAR/ <br>
+        MEM_ADDR: 0x00FF41_GHOST
+    </div>
+
+    <div class="footer">
+        UNAUTHORIZED ACCESS TO THE DATA LAYER IS PUNISHABLE BY TETHER SEVERANCE.
     </div>
 
 </body>
